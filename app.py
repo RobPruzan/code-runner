@@ -29,8 +29,8 @@ languages = {
     "python": {
         "interpreter": python_executable,
         "extension": ".py",
-        "env_code": 'import os, json\nadjacencyList = json.loads(os.getenv("ADJACENCY_LIST", "[]"))\nstart_node = json.loads(os.getenv("START_NODE"))\n',
-        "call_code": "\nout = json.dumps(algorithm(adjacencyList, start_node))"
+        # "env_code": 'import os, json\nadjacencyList = json.loads([Node(ID=node[0], value=node[1], neighbors=neighbors) for node, neighbors in os.getenv("ADJACENCY_LIST", "[]")])\nstart_node = Node(ID=os.getenv("START_NODE"), value=os.getenv("START_NODE_VALUE"), neighbors=os.getenv("START_NODE_NEIGHBORS"))\n',
+        "call_code": "\nout = json.dumps(algorithm(adjacencyList, start_node), cls=ExtendedEncoder)"
         + "\n"
         + f"print('{parse_var}')"
         + "\n"
@@ -94,15 +94,36 @@ def run_code():
     code = data.get("code")
     code = code.replace(": NodeID", "") if lang != "typescript" else code
     env = data.get("env")
+    # print("env res", env)
 
     if lang not in languages:
         return jsonify({"error": "Unsupported language"}), 400
 
     # Generate a random name for the file
     filename = "/tmp/code" + str(uuid.uuid4()) + languages[lang]["extension"]
+    setup_code_name = f"exec_{lang}" + languages[lang]["extension"]
+
+    # with open(filename, "w") as file:
+    #     file.write(languages[lang]["env_code"] + code + languages[lang]["call_code"])
+
+    # filename = f"exec_{lang}" + languages[lang]["extension"]
+    # initial
+    with open(setup_code_name, "r") as file:
+        full_code = str(
+            code
+            + "\n"
+            + file.read()
+            + "\n"
+            + "\n"
+            # + languages[lang]["env_code"]
+            + languages[lang]["call_code"],
+        )
+
+    # print("full code", full_code)
 
     with open(filename, "w") as file:
-        file.write(languages[lang]["env_code"] + code + languages[lang]["call_code"])
+        file.write(full_code)
+
     stderr = ""
     stdout = ""
     try:
@@ -137,6 +158,7 @@ def run_code():
         output = str(e)
         print("caught exception:", output)
     if stderr:
+        print("el", stderr)
         return jsonify({"output": [stderr], "type": "error"})
     logs, out = parse_output(output)
     out = json.loads(json.loads(out))
@@ -144,7 +166,12 @@ def run_code():
 
     logs = logs if logs else ""
 
-    return jsonify({"output": out, "logs": logs})
+    # if type(out) == list:
+    #     if len(out) > 0 and type(out[0]) == list:
+    # print("returning", jsonify({"output": out, "logs": logs}))
+    print(json.dumps({"output": out, "logs": logs}))
+
+    return json.loads(json.dumps({"output": out, "logs": logs}))
 
 
 if __name__ == "__main__":
