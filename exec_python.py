@@ -2,6 +2,7 @@ import os, json
 
 from dataclasses import dataclass, asdict
 from typing import List, Dict
+import traceback
 
 # whats concatenated:
 # @dataclass
@@ -28,16 +29,9 @@ class Node:
     ID: str
     value: int
 
-    # def __json__(self):
-    #     dct = {"ID": self.ID, "value": self.value}
-    #     return json.dumps(dct)
-
 
 class ExtendedEncoder(json.JSONEncoder):
     def default(self, obj):
-        # if hasattr(obj, 'dictify'):
-        #     return obj.dictify()
-        # return super
         return asdict(obj)
 
 
@@ -63,20 +57,6 @@ start_node = (
 )
 
 
-# def is_bst(adj_list, node, min_value=float('-inf'), max_value=float('inf')):
-#     if node is None:
-#         return True
-#     if not min_value <= node.value <= max_value:
-#         return False
-
-#     children = adj_list.get(node.id, [])
-#     if len(children) > 2:
-#         return False
-
-#     if len(children) == 1:
-#         return is_bst(adj_list, children[0], min_value, node.value) or is_bst(adj_list, children[0], node.value, max_value)
-#     elif len(children) == 2:
-#         return is_bst(adj_list, children[0], min_value, node.value) and is_bst(adj_list, children[1], node.value, max_value)
-#     return True
-
-
+# def stack(f):
+#     def handler(*args, **kwargs):
+#         stack = traceback.
