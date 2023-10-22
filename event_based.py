@@ -1,11 +1,8 @@
 import inspect
-from dataclasses import dataclass, asdict
 import json
 import sys
 from types import FrameType
-from typing import Any, Dict, List, Deque, TypedDict, Union
-from collections import deque
-from functools import wraps
+from typing import Any, List, TypedDict, Union
 from enum import Enum
 
 
@@ -15,29 +12,17 @@ class Tag(Enum):
     Return = "Return"
 
 
-# @dataclass
-
-
 class Frame(TypedDict):
     line: int
     name: str
     args: dict[str, Any]  # inspect.ArgInfo.asdict() result
 
 
-# @dataclass(
-#     eq=True,
-#     frozen=True,
-# )
 class Node(TypedDict):
     ID: str
     value: int
 
 
-# class SerializableArgInfo(inspect.ArgInfo):
-#     asdict
-
-
-# @dataclass
 class Step(TypedDict):
     tag: Tag  # This is the type of the stringified object
     visualization: Union[List[List[Node]], List[Node]]
@@ -55,10 +40,10 @@ def get_full_trace(current_frame: FrameType):
     partial_frames = get_full_trace(current_frame=current_frame.f_back)
     filtered = {}
     for k, v in current_frame.f_locals.items():
-        if k == "args":
-            # exclude the first item since that will be "self" in the method
-            filtered[k] = v[1:]
-            continue
+        # if k == "args":
+        #     # exclude the first item since that will be "self" in the method
+        #     filtered[k] = v[1:]
+        #     continue
         if k != "current_frame" and k != "frames" and k != "global_frames" and k != "f":
             filtered[k] = v
     arg_values = inspect.getargvalues(current_frame)
@@ -69,7 +54,6 @@ def get_full_trace(current_frame: FrameType):
         varargs=arg_values.varargs,
         locals={**arg_values.locals},
     )
-    # print(json.dumps(partial_copied_arg_vales))
     partial_frames.append(
         Frame(
             line=current_frame.f_lineno,
@@ -121,15 +105,10 @@ sys.settrace(tracing_callback)
 result = test(69)
 sys.settrace(None)
 
-# print(_STEPS)
 
 serializable_STEPS = []
 for idx, step in enumerate(_STEPS):
-    # print(_STEPS[idx])
     serializable_STEPS.append({**_STEPS[idx], "tag": step.get("tag").value})
-    # print(step, end="\n\n")
 
-# print(serializable_STEPS)
-# print([asdict(step) for step in _STEPS])
 
 print(json.dumps(serializable_STEPS))
