@@ -38,14 +38,6 @@ def get_full_trace(current_frame: FrameType):
     if current_frame.f_back is None:
         return []
     partial_frames = get_full_trace(current_frame=current_frame.f_back)
-    filtered = {}
-    for k, v in current_frame.f_locals.items():
-        # if k == "args":
-        #     # exclude the first item since that will be "self" in the method
-        #     filtered[k] = v[1:]
-        #     continue
-        if k != "current_frame" and k != "frames" and k != "global_frames" and k != "f":
-            filtered[k] = v
     arg_values = inspect.getargvalues(current_frame)
 
     partial_copied_arg_vales = inspect.ArgInfo(
