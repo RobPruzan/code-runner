@@ -6,10 +6,9 @@ from types import FrameType
 from typing import Any, List, NamedTuple, TypedDict, Union
 from enum import Enum
 
-
+parse_var = "\P"
 # whats concatenated:
-# @dataclass
-# class Node:
+# class Node(NamedTuple):
 #     ID: string
 #     value: int
 
@@ -24,13 +23,13 @@ class Node(NamedTuple):
     value: int
 
 
-_node = lambda node: Node(ID=node.split(",")[0], value=int(node.split(",")[1]))
+# _node = lambda node: Node(ID=node.split(",")[0], value=int(node.split(",")[1]))
 
 
-adjacencyList = {
-    _node(node): [Node(n, v) for n, v in neighbors]  # type:ignore
-    for node, neighbors in json.loads(os.getenv("ADJACENCY_LIST", "[]")).items()
-}
+# adjacencyList = {
+#     _node(node): [Node(n, v) for n, v in neighbors]  # type:ignore
+#     for node, neighbors in json.loads(os.getenv("ADJACENCY_LIST", "[]")).items()
+# }
 has_start_node = (
     True
     if bool(os.getenv("START_NODE")) and bool(os.getenv("START_NODE_VALUE"))
@@ -147,7 +146,10 @@ def tracing_callback(frame: FrameType, event, arg):
 
 
 adjacencyList = json.loads(os.getenv("ADJACENCY_LIST", "[]"))
-adjacencyList = [Node(ID=node[0], value=node[1]) for node, neighbors in adjacencyList]
+# print("wadu fuck", adjacencyList)
+adjacencyList = [
+    Node(ID=node_id, value=adjacencyList[node_id]["value"]) for node_id in adjacencyList
+]
 
 start_node = Node(
     ID=json.loads(os.getenv("START_NODE", "")),
@@ -155,9 +157,11 @@ start_node = Node(
 )
 
 sys.settrace(tracing_callback)
-algorithm(adjacencyList, start_node)  # type:ignore
+algorithm(_GLOBAL_VISUALIZATION, adjacencyList, start_node)  # type:ignore
 sys.settrace(None)
-print("{parse_var}")  # type:ignore
+
+print("again, wadu fuck", _STEPS)
+print(f"{parse_var}")  # type:ignore
 
 serializable_STEPS = []
 for idx, step in enumerate(_STEPS):

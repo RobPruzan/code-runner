@@ -13,7 +13,6 @@ parse_var = "\P"
 def parse_output(out: str):
     pre = [""]
     post = [""]
-    print("full stdout", out)
     for idx in range(len(out)):
         if idx == len(out):
             return
@@ -29,12 +28,6 @@ languages = {
     "python": {
         "interpreter": python_executable,
         "extension": ".py",
-        # "env_code": 'import os, json\nadjacencyList = json.loads([Node(ID=node[0], value=node[1], neighbors=neighbors) for node, neighbors in os.getenv("ADJACENCY_LIST", "[]")])\nstart_node = Node(ID=os.getenv("START_NODE"), value=os.getenv("START_NODE_VALUE"), neighbors=os.getenv("START_NODE_NEIGHBORS"))\n',
-        # "call_code": "\nout = json.dumps(algorithm(adjacencyList, start_node), cls=ExtendedEncoder)"
-        # + "\n"
-        # + f"print('{parse_var}')"
-        # + "\n"
-        # + "print(json.dumps(out))",
     },
     "java": {
         "interpreter": "javac",
@@ -50,13 +43,6 @@ languages = {
     "go": {
         "interpreter": "go",
         "extension": ".go",
-        # "env_code": 'import "encoding/json"\nvar adjacencyList []string\njson.Unmarshal([]byte(os.Getenv("ADJACENCY_LIST")), &adjacencyList)\n',
-        "call_code": "\n"
-        + "out, _ := json.Marshal(algorithm(adjacencyList))"
-        + "\n"
-        + f'fmt.Println("{parse_var}")'
-        + "\n"
-        + "fmt.Println(string(out))",
     },
 }
 
@@ -91,23 +77,8 @@ def run_code():
     filename = "/tmp/code" + str(uuid.uuid4()) + languages[lang]["extension"]
     setup_code_name = f"exec_{lang}" + languages[lang]["extension"]
 
-    # with open(filename, "w") as file:
-    #     file.write(languages[lang]["env_code"] + code + languages[lang]["call_code"])
-
-    # filename = f"exec_{lang}" + languages[lang]["extension"]
-    # initial
     with open(setup_code_name, "r") as file:
-        full_code = str(
-            code
-            + "\n"
-            + file.read()
-            + "\n"
-            + "\n"
-            # + languages[lang]["env_code"]
-            + languages[lang]["call_code"],
-        )
-
-    # print("full code", full_code)
+        full_code = str(code + "\n" + file.read())
 
     with open(filename, "w") as file:
         file.write(full_code)
@@ -148,18 +119,13 @@ def run_code():
     if stderr:
         print("el", stderr)
         return jsonify({"output": [stderr], "type": "error"})
-    logs, out = parse_output(output)
-    out = json.loads(json.loads(out))
+    logs, out = parse_output(output)  # type:ignore
+    out = json.loads(out)
     out = out if out is not None else []
 
     logs = logs if logs else ""
 
-    # if type(out) == list:
-    #     if len(out) > 0 and type(out[0]) == list:
-    # print("returning", jsonify({"output": out, "logs": logs}))
-    print(json.dumps({"output": out, "logs": logs}))
-
-    return json.loads(json.dumps({"output": out, "logs": logs}))
+    return {"output": out, "logs": logs}
 
 
 if __name__ == "__main__":
