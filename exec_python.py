@@ -1,8 +1,11 @@
-import os, json
+import inspect
+import json
+import os
+import sys
+from types import FrameType
+from typing import Any, List, TypedDict, Union
+from enum import Enum
 
-from dataclasses import dataclass, asdict
-from typing import List, Dict
-import traceback
 
 # whats concatenated:
 # @dataclass
@@ -15,31 +18,17 @@ import traceback
 #     # your code here
 #     pass
 
-# def apply_dict(step):
-#     if (type(step) == list):
-#         if len(step) > 0 and type(step[0]) == list:
-#             return [s.as]
 
-
-@dataclass(
-    eq=True,
-    frozen=True,
-)
-class Node:
+class Node(TypedDict):
     ID: str
     value: int
-
-
-class ExtendedEncoder(json.JSONEncoder):
-    def default(self, obj):
-        return asdict(obj)
 
 
 _node = lambda node: Node(ID=node.split(",")[0], value=int(node.split(",")[1]))
 
 
 adjacencyList = {
-    _node(node): [Node(n, v) for n, v in neighbors]
+    _node(node): [Node(n, v) for n, v in neighbors]  # type:ignore
     for node, neighbors in json.loads(os.getenv("ADJACENCY_LIST", "[]")).items()
 }
 has_start_node = (

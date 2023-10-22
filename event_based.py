@@ -2,7 +2,7 @@ import inspect
 import json
 import sys
 from types import FrameType
-from typing import Any, List, TypedDict, Union
+from typing import Any, List, NamedTuple, TypedDict, Union
 from enum import Enum
 
 
@@ -18,7 +18,7 @@ class Frame(TypedDict):
     args: dict[str, Any]  # inspect.ArgInfo.asdict() result
 
 
-class Node(TypedDict):
+class Node(NamedTuple):
     ID: str
     value: int
 
@@ -39,12 +39,19 @@ def get_full_trace(current_frame: FrameType):
         return []
     partial_frames = get_full_trace(current_frame=current_frame.f_back)
     arg_values = inspect.getargvalues(current_frame)
-
+    # slightly hacky way to ensure locals are serializable
+    filtered = {}
+    for k, v in arg_values.locals.items():
+        try:
+            json.dumps(v)
+            filtered[k] = v
+        except:
+            filtered[k] = str(v)
     partial_copied_arg_vales = inspect.ArgInfo(
         args=arg_values.args,
         keywords=arg_values.keywords,
         varargs=arg_values.varargs,
-        locals={**arg_values.locals},
+        locals=filtered,
     )
     partial_frames.append(
         Frame(
@@ -57,11 +64,21 @@ def get_full_trace(current_frame: FrameType):
 
 
 def tracing_callback(frame: FrameType, event, arg):
+    copied_global_vis = []
+    for node in _GLOBAL_VISUALIZATION:
+        if isinstance(node[0], list):
+            print("what", node)
+            copied_global_vis.append([n._asdict() for n in node])  # type:ignore
+        else:
+            copied_global_vis.append(node._asdict())
+
+    # print("pleaase", copied_global_vis)
+
     if event == "call":
         new_step = Step(
             frames=get_full_trace(frame),
             tag=Tag.Call,
-            visualization=[*_GLOBAL_VISUALIZATION],
+            visualization=copied_global_vis,
             line=frame.f_lineno,
         )
         _STEPS.append(new_step)
@@ -69,7 +86,7 @@ def tracing_callback(frame: FrameType, event, arg):
         new_step = Step(
             frames=get_full_trace(frame),
             tag=Tag.Line,
-            visualization=[*_GLOBAL_VISUALIZATION],
+            visualization=copied_global_vis,
             line=frame.f_lineno,
         )
         _STEPS.append(new_step)
@@ -77,7 +94,7 @@ def tracing_callback(frame: FrameType, event, arg):
         new_step = Step(
             frames=get_full_trace(frame),
             tag=Tag.Return,
-            visualization=[*_GLOBAL_VISUALIZATION],
+            visualization=copied_global_vis,
             line=frame.f_lineno,
         )
         _STEPS.append(new_step)
@@ -100,7 +117,14 @@ sys.settrace(None)
 
 serializable_STEPS = []
 for idx, step in enumerate(_STEPS):
-    serializable_STEPS.append({**_STEPS[idx], "tag": step.get("tag").value})
+    huh = {
+        **_STEPS[idx],
+        "tag": step.get("tag").value,
+    }
 
+    serializable_STEPS.append(huh)
 
-print(json.dumps(serializable_STEPS))
+# print(serializable_STEPS)
+for i in json.loads(json.dumps(serializable_STEPS)):
+    print(i)
+# print(json.dumps(serializable_STEPS))
