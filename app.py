@@ -9,18 +9,26 @@ import os
 app = Flask(__name__)
 parse_var = "\P"
 
+error_var = "\E"
+
 
 def parse_output(out: str):
     pre = [""]
     post = [""]
+    err = False
     for idx in range(len(out)):
         if idx == len(out):
             return
+        if out[idx : idx + 2] == error_var:
+            err = True
+            pre[0] = out[:idx]
+            post[0] = out[idx + 2 :]
+            return pre[0], post[0], err
         if out[idx : idx + 2] == parse_var:
             pre[0] = out[:idx]
             post[0] = out[idx + 2 :]
-            return pre[0], post[0]
-    return pre[0], post[0]
+            return pre[0], post[0], err
+    return pre[0], post[0], err
 
 
 python_executable = sys.executable
@@ -82,7 +90,7 @@ def run_code():
 
     with open(filename, "w") as file:
         file.write(full_code)
-
+    fck = False
     stderr = ""
     stdout = ""
     try:
@@ -116,10 +124,9 @@ def run_code():
     except Exception as e:
         output = str(e)
         print("caught exception:", output)
+    logs, out, err = parse_output(output)  # type:ignore
     if stderr:
-        print("el", stderr)
-        return jsonify({"output": [stderr], "type": "error"})
-    logs, out = parse_output(output)  # type:ignore
+        return jsonify({"type": "error", "logs": [stderr]})
     out = json.loads(out)
     out = out if out is not None else []
 

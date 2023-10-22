@@ -1,0 +1,160 @@
+{
+  "type": "Visualizer",
+  "logs": "again, wadu fuck [{'frames': [{'line': 9, 'name': 'algorithm', 'args': {'args': ['visualization', 'adjList', 'start_node'], 'varargs': None, 'keywords': None, 'locals': {'visualization': [], 'adjList': [Node(ID='0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657', value=30), Node(ID='d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657', value=35), Node(ID='22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657', value=43), Node(ID='d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657', value=77), Node(ID='4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657', value=96), Node(ID='a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657', value=42), Node(ID='03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657', value=39), Node(ID='114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657', value=20), Node(ID='5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657', value=85), Node(ID='8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657', value=29), Node(ID='75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657', value=54), Node(ID='e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657', value=87), Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99)], 'start_node': Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99)}}}], 'tag': <Tag.Call: 'Call'>, 'visualization': [], 'line': 9}, {'frames': [{'line': 10, 'name': 'algorithm', 'args': {'args': ['visualization', 'adjList', 'start_node'], 'varargs': None, 'keywords': None, 'locals': {'visualization': [], 'adjList': [Node(ID='0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657', value=30), Node(ID='d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657', value=35), Node(ID='22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657', value=43), Node(ID='d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657', value=77), Node(ID='4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657', value=96), Node(ID='a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657', value=42), Node(ID='03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657', value=39), Node(ID='114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657', value=20), Node(ID='5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657', value=85), Node(ID='8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657', value=29), Node(ID='75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657', value=54), Node(ID='e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657', value=87), Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99)], 'start_node': Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99)}}}], 'tag': <Tag.Line: 'Line'>, 'visualization': [], 'line': 10}, {'frames': [{'line': 11, 'name': 'algorithm', 'args': {'args': ['visualization', 'adjList', 'start_node'], 'varargs': None, 'keywords': None, 'locals': {'visualization': [], 'adjList': [Node(ID='0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657', value=30), Node(ID='d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657', value=35), Node(ID='22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657', value=43), Node(ID='d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657', value=77), Node(ID='4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657', value=96), Node(ID='a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657', value=42), Node(ID='03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657', value=39), Node(ID='114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657', value=20), Node(ID='5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657', value=85), Node(ID='8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657', value=29), Node(ID='75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657', value=54), Node(ID='e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657', value=87), Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99)], 'start_node': Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99), 'a': 2}}}], 'tag': <Tag.Line: 'Line'>, 'visualization': [], 'line': 11}, {'frames': [{'line': 11, 'name': 'algorithm', 'args': {'args': ['visualization', 'adjList', 'start_node'], 'varargs': None, 'keywords': None, 'locals': {'visualization': [], 'adjList': [Node(ID='0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657', value=30), Node(ID='d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657', value=35), Node(ID='22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657', value=43), Node(ID='d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657', value=77), Node(ID='4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657', value=96), Node(ID='a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657', value=42), Node(ID='03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657', value=39), Node(ID='114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657', value=20), Node(ID='5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657', value=85), Node(ID='8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657', value=29), Node(ID='75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657', value=54), Node(ID='e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657', value=87), Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99)], 'start_node': Node(ID='167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657', value=99), 'a': 2}}}], 'tag': <Tag.Return: 'Return'>, 'visualization': [], 'line': 11}]\n",
+  "output": [
+    {
+      "frames": [
+        {
+          "args": {
+            "args": ["visualization", "adjList", "start_node"],
+            "keywords": null,
+            "locals": {
+              "adjList": [
+                ["0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657", 30],
+                ["d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657", 35],
+                ["22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657", 43],
+                ["d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657", 77],
+                ["4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657", 96],
+                ["a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657", 42],
+                ["03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657", 39],
+                ["114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657", 20],
+                ["5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657", 85],
+                ["8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657", 29],
+                ["75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657", 54],
+                ["e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657", 87],
+                ["167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657", 99]
+              ],
+              "start_node": [
+                "167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657",
+                99
+              ],
+              "visualization": []
+            },
+            "varargs": null
+          },
+          "line": 9,
+          "name": "algorithm"
+        }
+      ],
+      "line": 9,
+      "tag": "Call",
+      "visualization": []
+    },
+    {
+      "frames": [
+        {
+          "args": {
+            "args": ["visualization", "adjList", "start_node"],
+            "keywords": null,
+            "locals": {
+              "adjList": [
+                ["0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657", 30],
+                ["d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657", 35],
+                ["22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657", 43],
+                ["d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657", 77],
+                ["4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657", 96],
+                ["a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657", 42],
+                ["03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657", 39],
+                ["114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657", 20],
+                ["5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657", 85],
+                ["8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657", 29],
+                ["75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657", 54],
+                ["e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657", 87],
+                ["167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657", 99]
+              ],
+              "start_node": [
+                "167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657",
+                99
+              ],
+              "visualization": []
+            },
+            "varargs": null
+          },
+          "line": 10,
+          "name": "algorithm"
+        }
+      ],
+      "line": 10,
+      "tag": "Line",
+      "visualization": []
+    },
+    {
+      "frames": [
+        {
+          "args": {
+            "args": ["visualization", "adjList", "start_node"],
+            "keywords": null,
+            "locals": {
+              "a": 2,
+              "adjList": [
+                ["0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657", 30],
+                ["d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657", 35],
+                ["22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657", 43],
+                ["d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657", 77],
+                ["4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657", 96],
+                ["a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657", 42],
+                ["03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657", 39],
+                ["114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657", 20],
+                ["5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657", 85],
+                ["8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657", 29],
+                ["75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657", 54],
+                ["e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657", 87],
+                ["167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657", 99]
+              ],
+              "start_node": [
+                "167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657",
+                99
+              ],
+              "visualization": []
+            },
+            "varargs": null
+          },
+          "line": 11,
+          "name": "algorithm"
+        }
+      ],
+      "line": 11,
+      "tag": "Line",
+      "visualization": []
+    },
+    {
+      "frames": [
+        {
+          "args": {
+            "args": ["visualization", "adjList", "start_node"],
+            "keywords": null,
+            "locals": {
+              "a": 2,
+              "adjList": [
+                ["0c4ee183-2b58-4c15-a8fd-9c716ef22b421697940146657", 30],
+                ["d483c7b1-b8ad-4983-9844-fa4387a931fa1697940146657", 35],
+                ["22ad2d09-7ba7-4f52-8fd9-c305dd06b9c71697940146657", 43],
+                ["d5203831-c566-46a7-8c2f-ee63f6fad3c41697940146657", 77],
+                ["4b6040c2-ff0c-427f-9aa4-81982e3652f01697940146657", 96],
+                ["a7fc79c7-50a6-4307-b150-37f4cdf517bb1697940146657", 42],
+                ["03d46284-8d43-4e9a-aa95-b2d3eb88f1bc1697940146657", 39],
+                ["114c4560-cdee-4bac-9cfc-6bd8cf6e97481697940146657", 20],
+                ["5ba5bd26-b50e-4ce2-a6b0-ead30864ab661697940146657", 85],
+                ["8ea567a7-6c4f-4ec9-aa96-2a2b1550d7e21697940146657", 29],
+                ["75d5fc3d-3c91-46ff-ae13-576e2cb9d1751697940146657", 54],
+                ["e2f90619-1c6a-4b73-b007-ac08dfcfb0ee1697940146657", 87],
+                ["167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657", 99]
+              ],
+              "start_node": [
+                "167a4da9-3f30-421c-a3a6-1136fe0559f21697940146657",
+                99
+              ],
+              "visualization": []
+            },
+            "varargs": null
+          },
+          "line": 11,
+          "name": "algorithm"
+        }
+      ],
+      "line": 11,
+      "tag": "Return",
+      "visualization": []
+    }
+  ]
+}

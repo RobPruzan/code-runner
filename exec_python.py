@@ -1,17 +1,21 @@
+import traceback
 import inspect
 import json
+import logging
 import os
 import sys
 from types import FrameType
 from typing import Any, List, NamedTuple, TypedDict, Union
 from enum import Enum
 
+# sys.stderr = sys.stdout
 parse_var = "\P"
+error_var = "\E"
+# try:
 # whats concatenated:
 # class Node(NamedTuple):
 #     ID: string
 #     value: int
-
 
 # def algorithm(adjList: Dict[Node, Node], start_node: Node):
 #     # your code here
@@ -23,13 +27,6 @@ class Node(NamedTuple):
     value: int
 
 
-# _node = lambda node: Node(ID=node.split(",")[0], value=int(node.split(",")[1]))
-
-
-# adjacencyList = {
-#     _node(node): [Node(n, v) for n, v in neighbors]  # type:ignore
-#     for node, neighbors in json.loads(os.getenv("ADJACENCY_LIST", "[]")).items()
-# }
 has_start_node = (
     True
     if bool(os.getenv("START_NODE")) and bool(os.getenv("START_NODE_VALUE"))
@@ -106,10 +103,11 @@ def get_full_trace(current_frame: FrameType) -> List[Frame]:
 def tracing_callback(frame: FrameType, event, arg):
     copied_global_vis = []
     for node in _GLOBAL_VISUALIZATION:
-        if isinstance(node[0], list):
+        if isinstance(node, list):
             print("what", node)
             copied_global_vis.append([n._asdict() for n in node])  # type:ignore
         else:
+            print("what is node", node)
             copied_global_vis.append(node._asdict())
 
     full_trace = get_full_trace(frame)
@@ -145,11 +143,21 @@ def tracing_callback(frame: FrameType, event, arg):
     return tracing_callback
 
 
-adjacencyList = json.loads(os.getenv("ADJACENCY_LIST", "[]"))
-# print("wadu fuck", adjacencyList)
-adjacencyList = [
-    Node(ID=node_id, value=adjacencyList[node_id]["value"]) for node_id in adjacencyList
-]
+json_adjaceny_list = json.loads(os.getenv("ADJACENCY_LIST", "[]"))
+
+
+def map_id_to_node(id: str):
+    for node in json_adjaceny_list:
+        if node["id"] == id:
+            return Node(ID=node["id"], value=node["value"])
+
+
+adjacencyList = {
+    Node(ID=node["id"], value=node["value"]): [
+        map_id_to_node(neighbor_id) for neighbor_id in node["neighbors"]
+    ]
+    for node in json_adjaceny_list
+}
 
 start_node = Node(
     ID=json.loads(os.getenv("START_NODE", "")),
@@ -160,7 +168,7 @@ sys.settrace(tracing_callback)
 algorithm(_GLOBAL_VISUALIZATION, adjacencyList, start_node)  # type:ignore
 sys.settrace(None)
 
-print("again, wadu fuck", _STEPS)
+print(adjacencyList)
 print(f"{parse_var}")  # type:ignore
 
 serializable_STEPS = []
