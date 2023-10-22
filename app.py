@@ -30,23 +30,11 @@ languages = {
         "interpreter": python_executable,
         "extension": ".py",
         # "env_code": 'import os, json\nadjacencyList = json.loads([Node(ID=node[0], value=node[1], neighbors=neighbors) for node, neighbors in os.getenv("ADJACENCY_LIST", "[]")])\nstart_node = Node(ID=os.getenv("START_NODE"), value=os.getenv("START_NODE_VALUE"), neighbors=os.getenv("START_NODE_NEIGHBORS"))\n',
-        "call_code": "\nout = json.dumps(algorithm(adjacencyList, start_node), cls=ExtendedEncoder)"
-        + "\n"
-        + f"print('{parse_var}')"
-        + "\n"
-        + "print(json.dumps(out))",
-    },
-    "javascript": {
-        "interpreter": "node",
-        "extension": ".js",
-        "env_code": 'let adjacencyList = JSON.parse(process.env.ADJACENCY_LIST || "[]");\n',
-        "call_code": "\n"
-        + "console.log(process.env.ADJACENCY_LIST);"
-        + "const out = JSON.stringify(algorithm(adjacencyList));"
-        + "\n"
-        + f"console.log('{parse_var}')"
-        + "\n"
-        + "console.log(out)",
+        # "call_code": "\nout = json.dumps(algorithm(adjacencyList, start_node), cls=ExtendedEncoder)"
+        # + "\n"
+        # + f"print('{parse_var}')"
+        # + "\n"
+        # + "print(json.dumps(out))",
     },
     "java": {
         "interpreter": "javac",
@@ -62,7 +50,7 @@ languages = {
     "go": {
         "interpreter": "go",
         "extension": ".go",
-        "env_code": 'import "encoding/json"\nvar adjacencyList []string\njson.Unmarshal([]byte(os.Getenv("ADJACENCY_LIST")), &adjacencyList)\n',
+        # "env_code": 'import "encoding/json"\nvar adjacencyList []string\njson.Unmarshal([]byte(os.Getenv("ADJACENCY_LIST")), &adjacencyList)\n',
         "call_code": "\n"
         + "out, _ := json.Marshal(algorithm(adjacencyList))"
         + "\n"
