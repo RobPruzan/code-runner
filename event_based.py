@@ -34,7 +34,7 @@ _STEPS: List[Step] = []
 _GLOBAL_VISUALIZATION: Union[List[Node], List[List[Node]]] = []
 
 
-def get_full_trace(current_frame: FrameType):
+def get_full_trace(current_frame: FrameType) -> List[Frame]:
     if current_frame.f_back is None:
         return []
     partial_frames = get_full_trace(current_frame=current_frame.f_back)
@@ -72,8 +72,12 @@ def tracing_callback(frame: FrameType, event, arg):
         else:
             copied_global_vis.append(node._asdict())
 
-    # print("pleaase", copied_global_vis)
-
+    full_trace = get_full_trace(frame)
+    current_frame = full_trace[-1]
+    locals = current_frame["args"].get("locals", {})
+    if locals.get("_cls") == "<class '__main__.Node'>":
+        # don't trace node accesses (registers as lambda since it's a namedtuple)
+        return tracing_callback
     if event == "call":
         new_step = Step(
             frames=get_full_trace(frame),
