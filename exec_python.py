@@ -49,8 +49,8 @@ has_start_node = (
 )
 start_node = (
     Node(
-        ID=json.loads(os.getenv("START_NODE")),
-        value=json.loads(os.getenv("START_NODE_VALUE")),
+        ID=json.loads(os.getenv("START_NODE")),  # type:ignore
+        value=json.loads(os.getenv("START_NODE_VALUE")),  # type:ignore
     )
     if has_start_node
     else "NO-START-NODE-SELECTED"
