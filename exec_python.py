@@ -107,7 +107,6 @@ def tracing_callback(frame: FrameType, event, arg):
             print("what", node)
             copied_global_vis.append([n._asdict() for n in node])  # type:ignore
         else:
-            print("what is node", node)
             copied_global_vis.append(node._asdict())
 
     full_trace = get_full_trace(frame)
@@ -124,6 +123,7 @@ def tracing_callback(frame: FrameType, event, arg):
             line=frame.f_lineno,
         )
         _STEPS.append(new_step)
+
     elif event == "line":
         new_step = Step(
             frames=get_full_trace(frame),
@@ -160,12 +160,12 @@ adjacencyList = {
 }
 
 start_node = Node(
-    ID=json.loads(os.getenv("START_NODE", "")),
-    value=json.loads(os.getenv("START_NODE_VALUE", "")),
+    ID=json.loads(os.getenv("START_NODE", "NO-START-NODE-SELECTED")),
+    value=json.loads(os.getenv("START_NODE_VALUE", "-1")),
 )
 
 sys.settrace(tracing_callback)
-algorithm(_GLOBAL_VISUALIZATION, adjacencyList, start_node)  # type:ignore
+result = algorithm(_GLOBAL_VISUALIZATION, adjacencyList, start_node)  # type:ignore
 sys.settrace(None)
 
 print(adjacencyList)
@@ -179,4 +179,8 @@ for idx, step in enumerate(_STEPS):
             "tag": step.get("tag").value,
         }
     )
-print(json.dumps(serializable_STEPS))
+
+if isinstance(result, bool):
+    print(json.dumps(result))
+else:
+    print(json.dumps(serializable_STEPS))

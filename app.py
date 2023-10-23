@@ -123,7 +123,7 @@ def run_code():
         output = stdout if not stderr else stderr
     except Exception as e:
         output = str(e)
-        print("caught exception:", output)
+    print("caught exception:", output)
     logs, out, err = parse_output(output)  # type:ignore
     if stderr:
         return jsonify({"type": "error", "logs": [stderr]})
