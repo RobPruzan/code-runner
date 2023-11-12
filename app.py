@@ -61,7 +61,7 @@ def add_cors_headers(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
     if request.method == "OPTIONS":
         response.headers["Access-Control-Allow-Methods"] = "POST"
-        headers = request.headers.get("Access-Control-Request-Headers")
+        headers = request.headers.get("Access-Control-Request-Headers")  # type: ignore
         if headers:
             response.headers["Access-Control-Allow-Headers"] = headers
     return response
@@ -71,7 +71,7 @@ def add_cors_headers(response):
 def run_code():
     if request.method == "OPTIONS":
         return make_response(("Allowed", 204))
-    data = request.get_json()
+    data = request.get_json()  # type: ignore
     lang = data.get("lang")
     code = data.get("code")
     code = code.replace(": NodeID", "") if lang != "typescript" else code
@@ -95,19 +95,19 @@ def run_code():
     stdout = ""
     try:
         interpreter = languages[lang]["interpreter"]
-        if lang in ["c", "c++", "rust"]:
-            compile_command = f"{interpreter} {filename} -o {filename}.out"
-            subprocess.run(shlex.split(compile_command), check=True)
-            run_command = f"./{filename}.out"
-        elif lang == "java":
-            # Java needs special treatment because of the way javac works
-            compile_command = f"{interpreter} {filename}"
-            subprocess.run(shlex.split(compile_command), check=True)
-            run_command = (
-                f"java -cp /tmp {os.path.splitext(os.path.basename(filename))[0]}"
-            )
-        else:
-            run_command = f"{interpreter} {filename}"
+        # if lang in ["c", "c++", "rust"]:
+        #     compile_command = f"{interpreter} {filename} -o {filename}.out"
+        #     subprocess.run(shlex.split(compile_command), check=True)
+        #     run_command = f"./{filename}.out"
+        # elif lang == "java":
+        #     # Java needs special treatment because of the way javac works
+        #     compile_command = f"{interpreter} {filename}"
+        #     subprocess.run(shlex.split(compile_command), check=True)
+        #     run_command = (
+        #         f"java -cp /tmp {os.path.splitext(os.path.basename(filename))[0]}"
+        #     )
+        # else:
+        run_command = f"{interpreter} {filename}"
 
         result = subprocess.run(
             shlex.split(run_command),
