@@ -168,8 +168,6 @@ sys.settrace(tracing_callback)
 result = algorithm(_GLOBAL_VISUALIZATION, adjacencyList, start_node)  # type:ignore
 sys.settrace(None)
 
-print(adjacencyList)
-print(f"{parse_var}")  # type:ignore
 
 serializable_STEPS = []
 for idx, step in enumerate(_STEPS):
