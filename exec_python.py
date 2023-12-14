@@ -103,8 +103,19 @@ def get_full_trace(current_frame: FrameType) -> List[Frame]:
 def tracing_callback(frame: FrameType, event, arg):
     copied_global_vis = []
     for node in _GLOBAL_VISUALIZATION:
-        if isinstance(node, list):
-            copied_global_vis.append([n._asdict() for n in node])  # type:ignore
+        node_is_list = isinstance(node, list)
+        if node_is_list and len(node) > 0 and isinstance(node[0], list):
+            acc = []
+            for lst in node:
+                acc.append(
+                    [n._asdict() for n in lst]  # type:ignore
+                )
+            copied_global_vis.append(acc)
+            return
+        if node_is_list:
+            copied_global_vis.append(
+                [n._asdict() for n in node if isinstance(n, Node)]
+            )  # type:ignore
         else:
             copied_global_vis.append(node._asdict())
 
