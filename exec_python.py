@@ -104,7 +104,6 @@ def tracing_callback(frame: FrameType, event, arg):
     copied_global_vis = []
     for node in _GLOBAL_VISUALIZATION:
         if isinstance(node, list):
-            print("what", node)
             copied_global_vis.append([n._asdict() for n in node])  # type:ignore
         else:
             copied_global_vis.append(node._asdict())
