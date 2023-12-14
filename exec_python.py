@@ -169,6 +169,10 @@ result = algorithm(_GLOBAL_VISUALIZATION, adjacencyList, start_node)  # type:ign
 sys.settrace(None)
 
 
+# print(adjacencyList)
+print(f"{parse_var}")  # type:ignore
+
+
 serializable_STEPS = []
 for idx, step in enumerate(_STEPS):
     serializable_STEPS.append(
