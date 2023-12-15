@@ -61,14 +61,41 @@ def add_cors_headers(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
     if request.method == "OPTIONS":
         response.headers["Access-Control-Allow-Methods"] = "POST"
-        headers = request.headers.get("Access-Control-Request-Headers")  # type: ignore
+        headers = request.headers.get("Access-Control-Request-Headers")  # type:ignore
+
         if headers:
             response.headers["Access-Control-Allow-Headers"] = headers
     return response
 
 
+@app.route("/execute", methods=["POST", "OPTIONS"])
+def execute_code():
+    print("oy")
+    if request.method == "OPTIONS":
+        return make_response(("Allowed", 204))
+    data = request.get_json()  # type: ignore
+    print(f"{data=}")
+    code = data.get("code")
+    interpreter = languages["python"]["interpreter"]
+
+    filename = "/tmp/code" + str(uuid.uuid4()) + languages["python"]["extension"]
+    with open(filename, "w") as file:
+        file.write(code)
+    run_command = f"{interpreter} {filename}"
+    result = subprocess.run(
+        shlex.split(run_command),
+        timeout=1,
+        capture_output=True,
+    )
+
+    stdout = result.stdout.decode()
+    stderr = result.stderr.decode()
+
+    return {"stdout": stdout, "stderr": stderr}
+
+
 @app.route("/run", methods=["POST", "OPTIONS"])
-def run_code():
+def graph_runner():
     if request.method == "OPTIONS":
         return make_response(("Allowed", 204))
     data = request.get_json()  # type: ignore
@@ -81,7 +108,6 @@ def run_code():
     if lang not in languages:
         return jsonify({"error": "Unsupported language"}), 400
 
-    # Generate a random name for the file
     filename = "/tmp/code" + str(uuid.uuid4()) + languages[lang]["extension"]
     setup_code_name = f"exec_{lang}" + languages[lang]["extension"]
 
@@ -90,7 +116,6 @@ def run_code():
 
     with open(filename, "w") as file:
         file.write(full_code)
-    fck = False
     stderr = ""
     stdout = ""
     try:
